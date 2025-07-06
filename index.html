@@ -323,30 +323,6 @@
             color: var(--warning);
         }
         
-        .continue-button {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            border-radius: 10px;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            cursor: pointer;
-            margin: 20px auto 0;
-            display: block;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(26, 117, 255, 0.5);
-        }
-        
-        .continue-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(26, 117, 255, 0.7);
-        }
-        
-        .continue-button:active {
-            transform: translateY(1px);
-        }
-        
         .message-box {
             position: fixed;
             top: 50%;
@@ -468,7 +444,7 @@
         
         <p class="aviso"><strong>Importante:</strong> Envía una captura de pantalla del depósito al grupo o al administrador en privado con tu nombre para identificarte.</p>
         
-        <button class="continue-button">Continuar al Pago</button>
+        <!-- Botón eliminado según solicitud -->
     </div>
 
     <div id="messageBox" class="message-box"></div>
@@ -613,22 +589,6 @@
                     copyToClipboard(textToCopy);
                 });
             });
-        });
-
-        // Add event listener to continue button
-        document.querySelector('.continue-button').addEventListener('click', () => {
-            if (!selectedCard) {
-                showMessage('Por favor, selecciona una apuesta primero');
-                return;
-            }
-            
-            const monto = selectedCard.getAttribute('data-monto');
-            showMessage(`Redirigiendo a pago por $${monto}...`);
-            
-            // Simulate payment redirection
-            setTimeout(() => {
-                showMessage('Pago completado. ¡Buena suerte!');
-            }, 1500);
         });
     </script>
 </body>
