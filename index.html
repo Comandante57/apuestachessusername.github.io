@@ -267,6 +267,22 @@
             color: var(--secondary);
         }
         
+        /* Nuevo contenedor para el valor y botón */
+        .value-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+        
+        /* Estilo para el número de cuenta */
+        .account-value {
+            word-break: break-all;
+            flex: 1;
+            min-width: 150px;
+        }
+        
         .copy-button {
             background: linear-gradient(to right, var(--primary), var(--accent));
             color: white;
@@ -389,6 +405,36 @@
             
             .info-title {
                 font-size: 1.5rem;
+            }
+        }
+        
+        /* Nuevos estilos responsivos para móviles */
+        @media (max-width: 480px) {
+            .cuenta-info p {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            
+            .value-container {
+                width: 100%;
+                justify-content: space-between;
+                margin-top: 5px;
+            }
+            
+            .copy-button {
+                margin-top: 5px;
+                align-self: flex-end;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .account-value {
+                width: 100%;
+                padding: 8px;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 6px;
+                margin-bottom: 5px;
             }
         }
     </style>
@@ -532,16 +578,28 @@
                 montoSeleccionadoSpan.textContent = `$${monto}`;
                 gananciaPotencialSpan.textContent = `$${ganancia}`;
 
-                // Construct the account info HTML with copy buttons
+                // Nueva estructura HTML para la información de la cuenta
                 cuentaInfoDiv.innerHTML = `
-                    <p><strong>Banco:</strong> ${cuentaAleatoria.banco}</p>
-                    <p><strong>Titular:</strong> ${cuentaAleatoria.titular}</p>
+                    <p>
+                        <strong>Banco:</strong> 
+                        <span class="value-container">
+                            <span class="account-value">${cuentaAleatoria.banco}</span>
+                        </span>
+                    </p>
+                    <p>
+                        <strong>Titular:</strong> 
+                        <span class="value-container">
+                            <span class="account-value">${cuentaAleatoria.titular}</span>
+                        </span>
+                    </p>
                     <p>
                         <strong>${cuentaAleatoria.tipo}:</strong> 
-                        <span id="accountValue">${cuentaAleatoria.valor}</span>
-                        <button class="copy-button" data-copy-target="accountValue">
-                            <i class="fas fa-copy"></i> Copiar
-                        </button>
+                        <span class="value-container">
+                            <span class="account-value" id="accountValue">${cuentaAleatoria.valor}</span>
+                            <button class="copy-button" data-copy-target="accountValue">
+                                <i class="fas fa-copy"></i> Copiar
+                            </button>
+                        </span>
                     </p>
                 `;
 
