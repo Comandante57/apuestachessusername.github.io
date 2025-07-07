@@ -3,593 +3,821 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apuestas Premium | Casino Futurista</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Únete al Grupo de Ajedrez | WhatsApp</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #1a75ff;
-            --secondary: #00d4ff;
-            --accent: #ff4d94;
-            --dark: #0c1a2b;
-            --darker: #081220;
-            --light: #e0f7ff;
-            --card-bg: rgba(26, 43, 60, 0.8);
-            --card-hover: rgba(42, 59, 76, 0.9);
-            --success: #00e676;
-            --warning: #ffc107;
-            --danger: #ff5252;
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+        }
+        
+        :root {
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --dark: #0f172a;
+            --darker: #0a0f1f;
+            --light: #e2e8f0;
+            --gray: #94a3b8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --card-bg: rgba(30, 41, 59, 0.9);
+            --card-border: rgba(255, 255, 255, 0.1);
         }
         
         body {
             background: linear-gradient(135deg, var(--darker), var(--dark));
             color: var(--light);
             min-height: 100vh;
+            font-family: 'Roboto', sans-serif;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
             padding: 20px;
             position: relative;
             overflow-x: hidden;
         }
         
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(26, 117, 255, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(0, 212, 255, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 50% 10%, rgba(255, 77, 148, 0.1) 0%, transparent 40%);
-            z-index: -1;
-        }
-        
         .header {
             text-align: center;
-            margin: 20px 0 40px;
-            position: relative;
+            margin-bottom: 30px;
+            max-width: 800px;
+            padding: 0 20px;
+            z-index: 3;
         }
         
         .logo {
-            font-size: 2.8rem;
-            margin-bottom: 10px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-        
-        .header h1 {
-            font-size: 2.2rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
-        }
-        
-        .header p {
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
-            color: rgba(224, 247, 255, 0.8);
-            line-height: 1.6;
-        }
-        
-        .apuestas-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 25px;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto 40px;
-        }
-        
-        .apuesta-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(100, 149, 237, 0.3);
-            border-radius: 16px;
-            padding: 30px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(5px);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 1;
-        }
-        
-        .apuesta-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(26, 117, 255, 0.1), rgba(0, 212, 255, 0.1));
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        
-        .apuesta-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 0 2px var(--primary);
-            background: var(--card-hover);
-        }
-        
-        .apuesta-card:hover::before {
-            opacity: 1;
-        }
-        
-        .apuesta-card.selected {
-            box-shadow: 0 0 0 3px var(--primary), 0 0 25px rgba(26, 117, 255, 0.5);
-            background: var(--card-hover);
-        }
-        
-        .apuesta-card.selected::before {
-            opacity: 1;
-        }
-        
-        .apuesta-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: var(--secondary);
-            text-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
-        }
-        
-        .apuesta-monto {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--secondary);
-            margin-bottom: 8px;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
-        }
-        
-        .apuesta-ganancia {
-            font-size: 1.4rem;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
             color: var(--success);
-            font-weight: 600;
+            animation: pulse 2s infinite;
         }
         
-        .apuesta-tag {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--accent);
-            color: white;
-            font-size: 0.8rem;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-weight: 600;
-            box-shadow: 0 4px 10px rgba(255, 77, 148, 0.3);
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
         
-        .info-desplegada {
-            background: var(--card-bg);
-            border: 1px solid rgba(100, 149, 237, 0.3);
-            border-radius: 16px;
-            padding: 30px;
+        .subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--gray);
+            font-weight: 300;
+        }
+        
+        .container {
             width: 100%;
             max-width: 800px;
-            margin: 40px auto 0;
-            display: none;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(5px);
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            text-align: center;
             position: relative;
             overflow: hidden;
+            z-index: 2;
         }
         
-        .info-desplegada::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
+        .country-selector {
             width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(26, 117, 255, 0.1), rgba(0, 212, 255, 0.1));
-            z-index: -1;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            position: relative;
         }
         
-        .info-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(100, 149, 237, 0.3);
-        }
-        
-        .info-icon {
-            font-size: 2.5rem;
-            margin-right: 15px;
-            color: var(--primary);
-        }
-        
-        .info-title {
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: var(--secondary);
-        }
-        
-        .info-content {
-            margin-bottom: 25px;
-        }
-        
-        .info-content p {
-            font-size: 1.15rem;
+        .search-container {
+            position: relative;
+            width: 100%;
             margin-bottom: 15px;
-            line-height: 1.6;
-            color: rgba(224, 247, 255, 0.9);
         }
         
-        .info-content strong {
-            color: var(--secondary);
-            font-weight: 600;
+        .search-container i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            font-size: 1.2rem;
         }
         
-        .cuenta-info {
-            background: rgba(58, 75, 92, 0.5);
-            padding: 25px;
+        .country-selector input {
+            width: 100%;
+            padding: 18px 20px 18px 50px;
+            font-size: 1.2rem;
+            border: none;
             border-radius: 12px;
-            margin: 25px 0;
-            border: 1px dashed var(--primary);
+            background: rgba(20, 20, 50, 0.8);
+            color: var(--light);
+            appearance: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border: 2px solid #334155;
         }
         
-        .cuenta-info p {
-            margin: 15px 0;
+        .country-selector input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.3);
+        }
+        
+        .country-selector input:hover {
+            background: rgba(30, 30, 70, 0.9);
+        }
+        
+        #countryList {
+            display: none;
+            max-height: 300px;
+            overflow-y: auto;
+            background: rgba(20, 20, 50, 0.95);
+            border-radius: 12px;
+            margin-top: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--card-border);
+        }
+        
+        .country-option {
+            padding: 15px 20px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             align-items: center;
-            gap: 15px;
-            font-size: 1.1rem;
         }
         
-        .cuenta-info strong {
-            min-width: 100px;
-            display: inline-block;
-            color: var(--secondary);
+        .country-option:last-child {
+            border-bottom: none;
         }
         
-        /* Nuevo contenedor para el valor y botón */
-        .value-container {
+        .country-option:hover {
+            background: rgba(106, 17, 203, 0.2);
+        }
+        
+        .country-flag {
+            width: 30px;
+            height: 20px;
+            margin-right: 15px;
+            border-radius: 3px;
+            object-fit: cover;
+        }
+        
+        .quick-countries {
             display: flex;
             flex-wrap: wrap;
-            align-items: center;
+            justify-content: center;
             gap: 10px;
-            flex: 1;
+            margin-top: 20px;
         }
         
-        /* Estilo para el número de cuenta */
-        .account-value {
-            word-break: break-all;
-            flex: 1;
-            min-width: 150px;
-        }
-        
-        .copy-button {
-            background: linear-gradient(to right, var(--primary), var(--accent));
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 10px 20px;
+        .quick-country {
+            background: rgba(106, 17, 203, 0.2);
+            padding: 10px 15px;
+            border-radius: 50px;
             cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
             transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 15px rgba(26, 117, 255, 0.4);
+            font-size: 0.9rem;
+            border: 1px solid rgba(106, 17, 203, 0.5);
         }
         
-        .copy-button:hover {
+        .quick-country:hover {
+            background: rgba(106, 17, 203, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .quick-country.mexico {
+        }
+        
+        .result {
+            background: rgba(30, 30, 60, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border-left: 5px solid var(--primary);
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .result.visible {
+            display: block;
+        }
+        
+        .result h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--success);
+        }
+        
+        .whatsapp-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #25D366, #128C7E);
+            color: white;
+            padding: 16px 40px;
+            font-size: 1.3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            margin: 20px 0;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .whatsapp-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(26, 117, 255, 0.6);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
         }
         
-        .copy-button:active {
+        .whatsapp-btn:active {
             transform: translateY(1px);
         }
         
-        .aviso {
-            margin-top: 25px;
-            font-size: 1.05rem;
-            color: var(--warning);
-            text-align: center;
-            background: rgba(255, 193, 7, 0.1);
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid var(--warning);
+        .whatsapp-btn i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+            vertical-align: middle;
         }
         
-        .aviso strong {
-            color: var(--warning);
+        .counter {
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(20, 20, 50, 0.6);
+            border-radius: 15px;
+            font-size: 1.2rem;
+            position: relative;
+        }
+        
+        .counter-number {
+            display: inline-block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #00c6ff, #0072ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 10px 0;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .counter-text {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+        
+        .counter-icon {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            font-size: 2rem;
+            color: var(--success);
+            animation: pulse 2s infinite;
+        }
+        
+        .chess-pieces {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            z-index: 1;
+            opacity: 0.1;
+        }
+        
+        .chess-piece {
+            font-size: 3rem;
+            margin: 0 10px;
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .chess-piece:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+        
+        .chess-piece:nth-child(3) {
+            animation-delay: 1s;
+        }
+        
+        .chess-piece:nth-child(4) {
+            animation-delay: 1.5s;
+        }
+        
+        .chess-piece:nth-child(5) {
+            animation-delay: 2s;
         }
         
         .message-box {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(42, 59, 76, 0.95);
-            color: white;
-            padding: 20px 40px;
-            border-radius: 12px;
-            z-index: 1000;
+            background: rgba(245, 158, 11, 0.15);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid var(--warning);
             display: none;
-            font-size: 1.2rem;
-            text-align: center;
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
-            border: 1px solid var(--secondary);
-            animation: fadeIn 0.3s ease;
+            animation: fadeIn 0.5s ease-out;
         }
         
-        .footer {
-            text-align: center;
-            margin-top: 50px;
-            padding: 20px;
-            color: rgba(224, 247, 255, 0.6);
-            font-size: 0.9rem;
-            border-top: 1px solid rgba(100, 149, 237, 0.2);
+        .message-box.visible {
+            display: block;
+        }
+        
+        .message-box h3 {
+            color: var(--warning);
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
         }
         
         @keyframes fadeIn {
-            from { opacity: 0; transform: translate(-50%, -45%); }
-            to { opacity: 1; transform: translate(-50%, -50%); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(26, 117, 255, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(26, 117, 255, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(26, 117, 255, 0); }
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
         }
         
         @media (max-width: 768px) {
-            .apuestas-container {
-                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-                gap: 15px;
+            .container {
+                padding: 30px 20px;
             }
             
-            .apuesta-card {
-                padding: 20px 15px;
+            h1 {
+                font-size: 2.2rem;
             }
             
-            .apuesta-monto {
-                font-size: 1.8rem;
+            .subtitle {
+                font-size: 1.2rem;
             }
             
-            .info-desplegada {
-                padding: 20px;
+            .country-selector input {
+                padding: 15px 15px 15px 45px;
+                font-size: 1rem;
             }
             
-            .info-title {
-                font-size: 1.5rem;
+            .whatsapp-btn {
+                padding: 14px 30px;
+                font-size: 1.1rem;
+            }
+            
+            .counter {
+                font-size: 1rem;
+            }
+            
+            .counter-number {
+                font-size: 2rem;
             }
         }
         
-        /* Nuevos estilos responsivos para móviles */
         @media (max-width: 480px) {
-            .cuenta-info p {
-                flex-direction: column;
-                align-items: flex-start;
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+                margin-bottom: 30px;
+            }
+            
+            .result h2 {
+                font-size: 1.6rem;
+            }
+            
+            .chess-piece {
+                font-size: 2rem;
+            }
+            
+            .quick-countries {
                 gap: 5px;
             }
             
-            .value-container {
-                width: 100%;
-                justify-content: space-between;
-                margin-top: 5px;
+            .quick-country {
+                padding: 8px 12px;
+                font-size: 0.8rem;
             }
-            
-            .copy-button {
-                margin-top: 5px;
-                align-self: flex-end;
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .account-value {
-                width: 100%;
-                padding: 8px;
-                background: rgba(255, 255, 255, 0.1);
-                border-radius: 6px;
-                margin-bottom: 5px;
-            }
+        }
+        
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.9rem;
+            z-index: 3;
         }
     </style>
 </head>
 <body>
+    <div class="chess-pieces">
+        <div class="chess-piece">♔</div>
+        <div class="chess-piece">♕</div>
+        <div class="chess-piece">♖</div>
+        <div class="chess-piece">♗</div>
+        <div class="chess-piece">♘</div>
+    </div>
+    
     <div class="header">
-        <div class="logo">APUESTAS PREMIUM</div>
-        <h1>Elige tu Apuesta</h1>
-        <p>Selecciona el monto que deseas apostar y descubre tu ganancia potencial. Depósitos seguros y transacciones rápidas garantizadas.</p>
+        <div class="logo">
+            <i class="fas fa-chess-knight"></i>
+        </div>
+        <h1>Chess Masters</h1>
+        <p class="subtitle">Únete a nuestra comunidad de ajedrez en WhatsApp</p>
     </div>
-
-    <div class="apuestas-container">
-        <!-- Las tarjetas de apuesta se generarán aquí con JavaScript -->
-    </div>
-
-    <div id="infoDesplegada" class="info-desplegada">
-        <div class="info-header">
-            <i class="fas fa-wallet info-icon"></i>
-            <h2 class="info-title">Detalles de tu Apuesta</h2>
+    
+    <div class="container">
+        <p class="subtitle">Selecciona de qué país eres para continuar con tu registro</p>
+        
+        <div class="country-selector">
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" id="countrySearch" placeholder="Busca tu país...">
+            </div>
+            <div id="countryList" class="country-list">
+                <!-- Los países se generarán dinámicamente con JavaScript -->
+            </div>
+            
+            <div class="quick-countries">
+                <div class="quick-country" data-country="Argentina">Argentina</div>
+                <div class="quick-country" data-country="España">España</div>
+                <div class="quick-country" data-country="Colombia">Colombia</div>
+                <div class="quick-country mexico" data-country="México">México</div>
+                <div class="quick-country" data-country="Perú">Perú</div>
+            </div>
         </div>
         
-        <div class="info-content">
-            <p>Has seleccionado una apuesta de <strong id="montoSeleccionado"></strong>.</p>
-            <p>Tu ganancia potencial es de <strong id="gananciaPotencial"></strong>.</p>
-            <p>Para confirmar tu apuesta, realiza el depósito en la siguiente cuenta:</p>
+        <div class="result" id="result">
+            <h2>¡Felicidades!</h2>
+            <p>Puedes unirte a nuestro grupo de Chess Masters en WhatsApp</p>
+            <a href="https://chat.whatsapp.com/DuV58gF4KlKFQSRLENADmS?mode=ac_c&fbclid=PAZXh0bgNhZW0CMTEAAacNFSZNeoeo9CkhOV-w1waxxxVhztACwT5KiNYpt0V8vG0eM-uO82BEpvg2BQ_aem_V5C8EiIrCBNPUfCWFgSnrA" 
+               class="whatsapp-btn" target="_blank">
+                <i class="fab fa-whatsapp"></i> Unirse al grupo
+            </a>
+            <p>¡Prepárate para desafiar a otros jugadores y mejorar tu juego!</p>
         </div>
         
-        <div class="cuenta-info" id="cuentaInfo">
-            <!-- La información de la cuenta se cargará aquí -->
+        <div class="message-box" id="messageBox">
+            <h3>¡Pronto estaremos disponibles en tu país!</h3>
+            <p>Sigue nuestras redes sociales para actualizaciones.</p>
         </div>
         
-        <p class="aviso"><strong>Importante:</strong> Envía una captura de pantalla del depósito al grupo o al administrador en privado con tu nombre para identificarte.</p>
-        
-        <!-- Botón eliminado según solicitud -->
+        <div class="counter">
+            <i class="fas fa-users counter-icon"></i>
+            <div class="counter-number" id="counter">1,024</div>
+            <div class="counter-text">jugadores se han registrado</div>
+        </div>
     </div>
 
-    <div id="messageBox" class="message-box"></div>
-
-    <div class="footer">
-        <p>© 2023 Chess Gambling | Todos los derechos reservados</p>
-        <p>Juega responsablemente. Las apuestas pueden ser adictivas.</p>
-    </div>
+    <footer>
+        <p>Chess Masters Community &copy; 2023 | Todos los derechos reservados</p>
+    </footer>
 
     <script>
-        const apuestas = [
-            { monto: 30, ganancia: 50, popular: true },
-            { monto: 50, ganancia: 85 },
-            { monto: 100, ganancia: 170, popular: true },
-            { monto: 150, ganancia: 255 },
-            { monto: 200, ganancia: 340, popular: true },
-            { monto: 300, ganancia: 510 },
-            { monto: 400, ganancia: 680 },
-            { monto: 500, ganancia: 850 },
-            { monto: 1000, ganancia: 1700, popular: true },
-            { monto: 2000, ganancia: 3400 },
-            { monto: 3000, ganancia: 5100, popular: true }
+        // Lista completa de países del mundo
+        const countries = [
+            {name: "Afganistán", code: "af"},
+            {name: "Albania", code: "al"},
+            {name: "Alemania", code: "de"},
+            {name: "Andorra", code: "ad"},
+            {name: "Angola", code: "ao"},
+            {name: "Antigua y Barbuda", code: "ag"},
+            {name: "Arabia Saudita", code: "sa"},
+            {name: "Argelia", code: "dz"},
+            {name: "Argentina", code: "ar"},
+            {name: "Armenia", code: "am"},
+            {name: "Australia", code: "au"},
+            {name: "Austria", code: "at"},
+            {name: "Azerbaiyán", code: "az"},
+            {name: "Bahamas", code: "bs"},
+            {name: "Bangladés", code: "bd"},
+            {name: "Barbados", code: "bb"},
+            {name: "Baréin", code: "bh"},
+            {name: "Bélgica", code: "be"},
+            {name: "Belice", code: "bz"},
+            {name: "Benín", code: "bj"},
+            {name: "Bielorrusia", code: "by"},
+            {name: "Birmania", code: "mm"},
+            {name: "Bolivia", code: "bo"},
+            {name: "Bosnia y Herzegovina", code: "ba"},
+            {name: "Botsuana", code: "bw"},
+            {name: "Brasil", code: "br"},
+            {name: "Brunéi", code: "bn"},
+            {name: "Bulgaria", code: "bg"},
+            {name: "Burkina Faso", code: "bf"},
+            {name: "Burundi", code: "bi"},
+            {name: "Bután", code: "bt"},
+            {name: "Cabo Verde", code: "cv"},
+            {name: "Camboya", code: "kh"},
+            {name: "Camerún", code: "cm"},
+            {name: "Canadá", code: "ca"},
+            {name: "Catar", code: "qa"},
+            {name: "Chad", code: "td"},
+            {name: "Chile", code: "cl"},
+            {name: "China", code: "cn"},
+            {name: "Chipre", code: "cy"},
+            {name: "Ciudad del Vaticano", code: "va"},
+            {name: "Colombia", code: "co"},
+            {name: "Comoras", code: "km"},
+            {name: "Corea del Norte", code: "kp"},
+            {name: "Corea del Sur", code: "kr"},
+            {name: "Costa de Marfil", code: "ci"},
+            {name: "Costa Rica", code: "cr"},
+            {name: "Croacia", code: "hr"},
+            {name: "Cuba", code: "cu"},
+            {name: "Dinamarca", code: "dk"},
+            {name: "Dominica", code: "dm"},
+            {name: "Ecuador", code: "ec"},
+            {name: "Egipto", code: "eg"},
+            {name: "El Salvador", code: "sv"},
+            {name: "Emiratos Árabes Unidos", code: "ae"},
+            {name: "Eritrea", code: "er"},
+            {name: "Eslovaquia", code: "sk"},
+            {name: "Eslovenia", code: "si"},
+            {name: "España", code: "es"},
+            {name: "Estados Unidos", code: "us"},
+            {name: "Estonia", code: "ee"},
+            {name: "Etiopía", code: "et"},
+            {name: "Filipinas", code: "ph"},
+            {name: "Finlandia", code: "fi"},
+            {name: "Fiyi", code: "fj"},
+            {name: "Francia", code: "fr"},
+            {name: "Gabón", code: "ga"},
+            {name: "Gambia", code: "gm"},
+            {name: "Georgia", code: "ge"},
+            {name: "Ghana", code: "gh"},
+            {name: "Granada", code: "gd"},
+            {name: "Grecia", code: "gr"},
+            {name: "Guatemala", code: "gt"},
+            {name: "Guinea", code: "gn"},
+            {name: "Guinea-Bisáu", code: "gw"},
+            {name: "Guinea Ecuatorial", code: "gq"},
+            {name: "Guyana", code: "gy"},
+            {name: "Haití", code: "ht"},
+            {name: "Honduras", code: "hn"},
+            {name: "Hungría", code: "hu"},
+            {name: "India", code: "in"},
+            {name: "Indonesia", code: "id"},
+            {name: "Irak", code: "iq"},
+            {name: "Irán", code: "ir"},
+            {name: "Irlanda", code: "ie"},
+            {name: "Islandia", code: "is"},
+            {name: "Islas Marshall", code: "mh"},
+            {name: "Islas Salomón", code: "sb"},
+            {name: "Israel", code: "il"},
+            {name: "Italia", code: "it"},
+            {name: "Jamaica", code: "jm"},
+            {name: "Japón", code: "jp"},
+            {name: "Jordania", code: "jo"},
+            {name: "Kazajistán", code: "kz"},
+            {name: "Kenia", code: "ke"},
+            {name: "Kirguistán", code: "kg"},
+            {name: "Kiribati", code: "ki"},
+            {name: "Kuwait", code: "kw"},
+            {name: "Laos", code: "la"},
+            {name: "Lesoto", code: "ls"},
+            {name: "Letonia", code: "lv"},
+            {name: "Líbano", code: "lb"},
+            {name: "Liberia", code: "lr"},
+            {name: "Libia", code: "ly"},
+            {name: "Liechtenstein", code: "li"},
+            {name: "Lituania", code: "lt"},
+            {name: "Luxemburgo", code: "lu"},
+            {name: "Macedonia del Norte", code: "mk"},
+            {name: "Madagascar", code: "mg"},
+            {name: "Malasia", code: "my"},
+            {name: "Malaui", code: "mw"},
+            {name: "Maldivas", code: "mv"},
+            {name: "Malí", code: "ml"},
+            {name: "Malta", code: "mt"},
+            {name: "Marruecos", code: "ma"},
+            {name: "Mauricio", code: "mu"},
+            {name: "Mauritania", code: "mr"},
+            {name: "México", code: "mx"},
+            {name: "Micronesia", code: "fm"},
+            {name: "Moldavia", code: "md"},
+            {name: "Mónaco", code: "mc"},
+            {name: "Mongolia", code: "mn"},
+            {name: "Montenegro", code: "me"},
+            {name: "Mozambique", code: "mz"},
+            {name: "Namibia", code: "na"},
+            {name: "Nauru", code: "nr"},
+            {name: "Nepal", code: "np"},
+            {name: "Nicaragua", code: "ni"},
+            {name: "Níger", code: "ne"},
+            {name: "Nigeria", code: "ng"},
+            {name: "Noruega", code: "no"},
+            {name: "Nueva Zelanda", code: "nz"},
+            {name: "Omán", code: "om"},
+            {name: "Países Bajos", code: "nl"},
+            {name: "Pakistán", code: "pk"},
+            {name: "Palaos", code: "pw"},
+            {name: "Panamá", code: "pa"},
+            {name: "Papúa Nueva Guinea", code: "pg"},
+            {name: "Paraguay", code: "py"},
+            {name: "Perú", code: "pe"},
+            {name: "Polonia", code: "pl"},
+            {name: "Portugal", code: "pt"},
+            {name: "Reino Unido", code: "gb"},
+            {name: "República Centroafricana", code: "cf"},
+            {name: "República Checa", code: "cz"},
+            {name: "República del Congo", code: "cg"},
+            {name: "República Democrática del Congo", code: "cd"},
+            {name: "República Dominicana", code: "do"},
+            {name: "Ruanda", code: "rw"},
+            {name: "Rumanía", code: "ro"},
+            {name: "Rusia", code: "ru"},
+            {name: "Samoa", code: "ws"},
+            {name: "San Cristóbal y Nieves", code: "kn"},
+            {name: "San Marino", code: "sm"},
+            {name: "San Vicente y las Granadinas", code: "vc"},
+            {name: "Santa Lucía", code: "lc"},
+            {name: "Santo Tomé y Príncipe", code: "st"},
+            {name: "Senegal", code: "sn"},
+            {name: "Serbia", code: "rs"},
+            {name: "Seychelles", code: "sc"},
+            {name: "Sierra Leona", code: "sl"},
+            {name: "Singapur", code: "sg"},
+            {name: "Siria", code: "sy"},
+            {name: "Somalia", code: "so"},
+            {name: "Sri Lanka", code: "lk"},
+            {name: "Suazilandia", code: "sz"},
+            {name: "Sudáfrica", code: "za"},
+            {name: "Sudán", code: "sd"},
+            {name: "Sudán del Sur", code: "ss"},
+            {name: "Suecia", code: "se"},
+            {name: "Suiza", code: "ch"},
+            {name: "Surinam", code: "sr"},
+            {name: "Tailandia", code: "th"},
+            {name: "Taiwán", code: "tw"},
+            {name: "Tanzania", code: "tz"},
+            {name: "Tayikistán", code: "tj"},
+            {name: "Timor Oriental", code: "tl"},
+            {name: "Togo", code: "tg"},
+            {name: "Tonga", code: "to"},
+            {name: "Trinidad y Tobago", code: "tt"},
+            {name: "Túnis", code: "tn"},
+            {name: "Turkmenistán", code: "tm"},
+            {name: "Turquía", code: "tr"},
+            {name: "Tuvalu", code: "tv"},
+            {name: "Ucrania", code: "ua"},
+            {name: "Uganda", code: "ug"},
+            {name: "Uruguay", code: "uy"},
+            {name: "Uzbekistán", code: "uz"},
+            {name: "Vanuatu", code: "vu"},
+            {name: "Venezuela", code: "ve"},
+            {name: "Vietnam", code: "vn"},
+            {name: "Yemen", code: "ye"},
+            {name: "Yibuti", code: "dj"},
+            {name: "Zambia", code: "zm"},
+            {name: "Zimbabue", code: "zw"}
         ];
 
-        // Tus cuentas bancarias proporcionadas
-        const cuentasBancarias = [
-            { banco: "BBVA", titular: "Rodolfo Ibarra S", tipo: "Tarjeta", valor: "4152314281739444" },
-            { banco: "BBVA", titular: "Rodolfo Ibarra S", tipo: "Tarjeta", valor: "4152314336921880" },
-            { banco: "Mercado Pago", titular: "Rodolfo Ibarra S", tipo: "CLABE", valor: "722969010075748450" }
-        ];
-
-        const apuestasContainer = document.querySelector('.apuestas-container');
-        const infoDesplegada = document.getElementById('infoDesplegada');
-        const montoSeleccionadoSpan = document.getElementById('montoSeleccionado');
-        const gananciaPotencialSpan = document.getElementById('gananciaPotencial');
-        const cuentaInfoDiv = document.getElementById('cuentaInfo');
-        const messageBox = document.getElementById('messageBox');
-        let selectedCard = null;
-
-        // Function to get a random account from the list
-        function getRandomAccount() {
-            const randomIndex = Math.floor(Math.random() * cuentasBancarias.length);
-            return cuentasBancarias[randomIndex];
-        }
-
-        // Function to display a temporary message
-        function showMessage(message) {
-            messageBox.textContent = message;
-            messageBox.style.display = 'block';
-            setTimeout(() => {
-                messageBox.style.display = 'none';
-            }, 2000);
-        }
-
-        // Function to copy text to clipboard
-        function copyToClipboard(text) {
-            const tempInput = document.createElement('textarea');
-            tempInput.value = text;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            try {
-                document.execCommand('copy');
-                showMessage('¡Copiado al portapapeles!');
-            } catch (err) {
-                console.error('Error al copiar: ', err);
-                showMessage('Error al copiar. Intenta manualmente.');
+        // Contador de visitas usando localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obtener el contador actual o inicializarlo
+            let count = localStorage.getItem('visitCount');
+            if (!count) {
+                // Empezar desde 1000
+                count = 1000;
+            } else {
+                count = parseInt(count) + 1;
             }
-            document.body.removeChild(tempInput);
-        }
-
-        // Function to get icon based on bet amount
-        function getBetIcon(monto) {
-            if (monto < 100) return "fas fa-coins";
-            if (monto < 500) return "fas fa-gem";
-            return "fas fa-crown";
-        }
-
-        // Generate betting cards dynamically
-        apuestas.forEach(apuesta => {
-            const card = document.createElement('div');
-            card.classList.add('apuesta-card');
-            card.setAttribute('data-monto', apuesta.monto);
-            card.setAttribute('data-ganancia', apuesta.ganancia);
-
-            card.innerHTML = `
-                <i class="${getBetIcon(apuesta.monto)} apuesta-icon"></i>
-                <div class="apuesta-monto">$${apuesta.monto}</div>
-                <div class="apuesta-ganancia">Gana $${apuesta.ganancia}</div>
-                ${apuesta.popular ? '<div class="apuesta-tag">POPULAR</div>' : ''}
-            `;
-            apuestasContainer.appendChild(card);
-
-            card.addEventListener('click', () => {
-                // Remove selected class from previously selected card
-                if (selectedCard) {
-                    selectedCard.classList.remove('selected');
+            
+            // Actualizar localStorage
+            localStorage.setItem('visitCount', count);
+            
+            // Formatear el número con separadores de miles
+            const formattedCount = new Intl.NumberFormat('es-MX').format(count);
+            
+            // Mostrar el contador
+            document.getElementById('counter').textContent = formattedCount;
+            
+            // Generar lista de países
+            const countryList = document.getElementById('countryList');
+            countries.forEach(country => {
+                const option = document.createElement('div');
+                option.className = 'country-option';
+                option.dataset.country = country.name;
+                option.dataset.code = country.code;
+                
+                const flag = document.createElement('div');
+                flag.className = 'country-flag';
+                flag.style.backgroundImage = `url(https://flagcdn.com/32x24/${country.code}.png)`;
+                flag.style.backgroundSize = 'cover';
+                
+                const name = document.createElement('span');
+                name.textContent = country.name;
+                
+                option.appendChild(flag);
+                option.appendChild(name);
+                countryList.appendChild(option);
+                
+                // Evento de clic para seleccionar país
+                option.addEventListener('click', function() {
+                    selectCountry(country.name, country.code);
+                });
+            });
+            
+            // Evento de búsqueda
+            const searchInput = document.getElementById('countrySearch');
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const options = document.querySelectorAll('.country-option');
+                
+                if (searchTerm.length > 0) {
+                    countryList.style.display = 'block';
+                    
+                    options.forEach(option => {
+                        const countryName = option.dataset.country.toLowerCase();
+                        if (countryName.includes(searchTerm)) {
+                            option.style.display = 'flex';
+                        } else {
+                            option.style.display = 'none';
+                        }
+                    });
+                } else {
+                    countryList.style.display = 'none';
                 }
-                
-                // Add selected class to current card
-                card.classList.add('selected');
-                selectedCard = card;
-                
-                const monto = card.getAttribute('data-monto');
-                const ganancia = card.getAttribute('data-ganancia');
-                const cuentaAleatoria = getRandomAccount();
-
-                montoSeleccionadoSpan.textContent = `$${monto}`;
-                gananciaPotencialSpan.textContent = `$${ganancia}`;
-
-                // Nueva estructura HTML para la información de la cuenta
-                cuentaInfoDiv.innerHTML = `
-                    <p>
-                        <strong>Banco:</strong> 
-                        <span class="value-container">
-                            <span class="account-value">${cuentaAleatoria.banco}</span>
-                        </span>
-                    </p>
-                    <p>
-                        <strong>Titular:</strong> 
-                        <span class="value-container">
-                            <span class="account-value">${cuentaAleatoria.titular}</span>
-                        </span>
-                    </p>
-                    <p>
-                        <strong>${cuentaAleatoria.tipo}:</strong> 
-                        <span class="value-container">
-                            <span class="account-value" id="accountValue">${cuentaAleatoria.valor}</span>
-                            <button class="copy-button" data-copy-target="accountValue">
-                                <i class="fas fa-copy"></i> Copiar
-                            </button>
-                        </span>
-                    </p>
-                `;
-
-                infoDesplegada.style.display = 'block';
-                infoDesplegada.scrollIntoView({ behavior: 'smooth' });
-
-                // Add event listener to the newly created copy button
-                const copyBtn = cuentaInfoDiv.querySelector('.copy-button');
-                copyBtn.addEventListener('click', () => {
-                    const textToCopy = document.getElementById('accountValue').textContent;
-                    copyToClipboard(textToCopy);
+            });
+            
+            // Ocultar lista al hacer clic fuera
+            document.addEventListener('click', function(e) {
+                if (!countryList.contains(e.target) && e.target !== searchInput) {
+                    countryList.style.display = 'none';
+                }
+            });
+            
+            // Eventos para países rápidos
+            const quickCountries = document.querySelectorAll('.quick-country');
+            quickCountries.forEach(country => {
+                country.addEventListener('click', function() {
+                    const countryName = this.dataset.country;
+                    const countryObj = countries.find(c => c.name === countryName);
+                    if (countryObj) {
+                        selectCountry(countryObj.name, countryObj.code);
+                    }
                 });
             });
         });
+        
+        function selectCountry(countryName, countryCode) {
+            const searchInput = document.getElementById('countrySearch');
+            const countryList = document.getElementById('countryList');
+            const resultDiv = document.getElementById('result');
+            const messageBox = document.getElementById('messageBox');
+            
+            // Actualizar campo de búsqueda
+            searchInput.value = countryName;
+            countryList.style.display = 'none';
+            
+            // Mostrar resultado según país
+            if (countryName === "México") {
+                resultDiv.classList.add('visible');
+                messageBox.classList.remove('visible');
+                
+                // Incrementar el contador cuando alguien de México se registra
+                let count = parseInt(localStorage.getItem('visitCount') || 1000);
+                count++;
+                localStorage.setItem('visitCount', count);
+                const formattedCount = new Intl.NumberFormat('es-MX').format(count);
+                document.getElementById('counter').textContent = formattedCount;
+            } else {
+                resultDiv.classList.remove('visible');
+                messageBox.classList.add('visible');
+            }
+        }
     </script>
 </body>
 </html>
