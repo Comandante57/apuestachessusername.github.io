@@ -151,8 +151,7 @@
         
         .apuesta-icon {
             font-size: 3rem;
-            margin-bottom: 20px;
-            color: var(--secondary);
+            margin-bottom: 10px;
             text-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
         }
         
@@ -160,8 +159,14 @@
             font-size: 2.2rem;
             font-weight: 700;
             color: var(--secondary);
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             text-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+        }
+        
+        .apuesta-nombre {
+            font-size: 1rem;
+            color: rgba(224, 247, 255, 0.8);
+            margin-bottom: 8px;
         }
         
         .apuesta-ganancia {
@@ -267,7 +272,6 @@
             color: var(--secondary);
         }
         
-        /* Nuevo contenedor para el valor y botón */
         .value-container {
             display: flex;
             flex-wrap: wrap;
@@ -276,7 +280,6 @@
             flex: 1;
         }
         
-        /* Estilo para el número de cuenta */
         .account-value {
             word-break: break-all;
             flex: 1;
@@ -384,7 +387,6 @@
             }
         }
         
-        /* Nuevos estilos responsivos para móviles */
         @media (max-width: 480px) {
             .cuenta-info p {
                 flex-direction: column;
@@ -443,8 +445,6 @@
         </div>
         
         <p class="aviso"><strong>Importante:</strong> Envía una captura de pantalla del depósito al grupo o al administrador en privado con tu nombre para identificarte.</p>
-        
-        <!-- Botón eliminado según solicitud -->
     </div>
 
     <div id="messageBox" class="message-box"></div>
@@ -456,20 +456,19 @@
 
     <script>
         const apuestas = [
-            { monto: 30, ganancia: 50, popular: true },
-            { monto: 50, ganancia: 85 },
-            { monto: 100, ganancia: 170, popular: true },
-            { monto: 150, ganancia: 255 },
-            { monto: 200, ganancia: 340, popular: true },
-            { monto: 300, ganancia: 510 },
-            { monto: 400, ganancia: 680 },
-            { monto: 500, ganancia: 850 },
-            { monto: 1000, ganancia: 1700, popular: true },
-            { monto: 2000, ganancia: 3400 },
-            { monto: 3000, ganancia: 5100, popular: true }
+            { monto: 30, ganancia: 48, icono: "🟢", nombre: "Básica" },
+            { monto: 50, ganancia: 80, icono: "🔵", nombre: "Media" },
+            { monto: 100, ganancia: 160, icono: "🔷", nombre: "Clásica", popular: true },
+            { monto: 150, ganancia: 240, icono: "🔶", nombre: "Avanzada" },
+            { monto: 200, ganancia: 320, icono: "🔴", nombre: "Competitiva", popular: true },
+            { monto: 300, ganancia: 480, icono: "🟣", nombre: "Pro" },
+            { monto: 400, ganancia: 640, icono: "🟤", nombre: "Master" },
+            { monto: 500, ganancia: 800, icono: "⚫", nombre: "Elite" },
+            { monto: 1000, ganancia: 1600, icono: "🟡", nombre: "Titan", popular: true },
+            { monto: 2000, ganancia: 3200, icono: "⚔️", nombre: "Leyenda" },
+            { monto: 3000, ganancia: 4800, icono: "👑", nombre: "Dios del Tablero", popular: true }
         ];
 
-        // Tus cuentas bancarias proporcionadas
         const cuentasBancarias = [
             { banco: "BBVA", titular: "Rodolfo Ibarra S", tipo: "Tarjeta", valor: "4152314281739444" },
             { banco: "BBVA", titular: "Rodolfo Ibarra S", tipo: "Tarjeta", valor: "4152314336921880" },
@@ -484,13 +483,11 @@
         const messageBox = document.getElementById('messageBox');
         let selectedCard = null;
 
-        // Function to get a random account from the list
         function getRandomAccount() {
             const randomIndex = Math.floor(Math.random() * cuentasBancarias.length);
             return cuentasBancarias[randomIndex];
         }
 
-        // Function to display a temporary message
         function showMessage(message) {
             messageBox.textContent = message;
             messageBox.style.display = 'block';
@@ -499,7 +496,6 @@
             }, 2000);
         }
 
-        // Function to copy text to clipboard
         function copyToClipboard(text) {
             const tempInput = document.createElement('textarea');
             tempInput.value = text;
@@ -515,46 +511,38 @@
             document.body.removeChild(tempInput);
         }
 
-        // Function to get icon based on bet amount
-        function getBetIcon(monto) {
-            if (monto < 100) return "fas fa-coins";
-            if (monto < 500) return "fas fa-gem";
-            return "fas fa-crown";
-        }
-
-        // Generate betting cards dynamically
         apuestas.forEach(apuesta => {
             const card = document.createElement('div');
             card.classList.add('apuesta-card');
             card.setAttribute('data-monto', apuesta.monto);
             card.setAttribute('data-ganancia', apuesta.ganancia);
+            card.setAttribute('data-nombre', apuesta.nombre);
 
             card.innerHTML = `
-                <i class="${getBetIcon(apuesta.monto)} apuesta-icon"></i>
+                <div class="apuesta-icon">${apuesta.icono}</div>
                 <div class="apuesta-monto">$${apuesta.monto}</div>
+                <div class="apuesta-nombre">${apuesta.nombre}</div>
                 <div class="apuesta-ganancia">Gana $${apuesta.ganancia}</div>
                 ${apuesta.popular ? '<div class="apuesta-tag">POPULAR</div>' : ''}
             `;
             apuestasContainer.appendChild(card);
 
             card.addEventListener('click', () => {
-                // Remove selected class from previously selected card
                 if (selectedCard) {
                     selectedCard.classList.remove('selected');
                 }
                 
-                // Add selected class to current card
                 card.classList.add('selected');
                 selectedCard = card;
                 
                 const monto = card.getAttribute('data-monto');
                 const ganancia = card.getAttribute('data-ganancia');
+                const nombre = card.getAttribute('data-nombre');
                 const cuentaAleatoria = getRandomAccount();
 
-                montoSeleccionadoSpan.textContent = `$${monto}`;
+                montoSeleccionadoSpan.textContent = `$${monto} (${nombre})`;
                 gananciaPotencialSpan.textContent = `$${ganancia}`;
 
-                // Nueva estructura HTML para la información de la cuenta
                 cuentaInfoDiv.innerHTML = `
                     <p>
                         <strong>Banco:</strong> 
@@ -582,7 +570,6 @@
                 infoDesplegada.style.display = 'block';
                 infoDesplegada.scrollIntoView({ behavior: 'smooth' });
 
-                // Add event listener to the newly created copy button
                 const copyBtn = cuentaInfoDiv.querySelector('.copy-button');
                 copyBtn.addEventListener('click', () => {
                     const textToCopy = document.getElementById('accountValue').textContent;
